@@ -1,0 +1,78 @@
+#!/usr/bin/env ruby -W
+# Copyright (c) 2017 Tallwave
+
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__) + "/../lib")
+
+require "issue_exporter/cli"
+
+module IssueExporting
+  class Command
+    include CLI
+
+    def about
+      VERSION
+    end
+
+    def usage
+      <<HERE
+Download all open issues from a GitHub repository.
+
+Usage: #{$PROGRAM_NAME} [OPTION]... [OWNER] [REPO] [TOKEN]
+
+Example: #{$PROGRAM_NAME} swilliams issue_exporter abcdef
+
+-o, --output      DIRECTORY
+                    set output path
+                      (default: current working directory)
+
+    --multiple-files Use a separate file for each issue
+                    (default: one single file)
+
+    --closed      include closed issues (default: false)
+
+-h, --help        display this help and exit
+    --version     display the version
+
+HERE
+
+    end
+
+    def initialize
+      super
+      @output = nil
+      @multiple_files = false
+      @include_closed_issues = false
+    end
+
+    def correct_number_of_args(arg_count)
+      arg_count == 3
+    end
+
+    def define_options(opts)
+      opts.on("-o", "--output ARG") { |arg| @output = arg }
+      opts.on("--multiple-files")   { @multiple_files = true }
+      opts.on("--closed")           { @include_closed_issues = true }
+    end
+
+    def process_input(arg, index)
+      case index
+      when 0
+        @owner = arg
+      when 1
+        @repo = arg
+      when 2
+        @token = arg
+      end
+    end
+
+    def perform_action
+      options = { path: @output,
+                  multiple_files: @multiple_files,
+                  include_closed_issues: @include_closed_issues }
+      exporter = IssueExporting::Exporter.new(@owner, @repo, @token, options)
+      exporter.export
+    end
+  end
+end
+
+IssueExporting::Command.new.run
