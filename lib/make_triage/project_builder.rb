@@ -15,13 +15,12 @@ module MakeTriage
     end
 
     def make
-      create_project 'Bug Tracking'
+      create_project 'Bug Tracking', 'Issue tracking and triage board', nil
 
     end
 
     private
     def create_project(name, description, cb)
-      error_handler = ErrorHandler.new
       uri = MakeTriage.make_project_uri @owner, @repo, @token
       payload = {
         "name" => name,
@@ -31,6 +30,7 @@ module MakeTriage
       http.use_ssl = true if uri.scheme == "https"
       req = Net::HTTP::Post.new uri.request_uri
       req.content_type = "application/json"
+      req.add_field "Accept", "application/vnd.github.inertia-preview+json"
       req.body = payload.to_json
       handle_response http.request(req)
     end

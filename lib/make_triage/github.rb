@@ -6,7 +6,7 @@ module MakeTriage
   end
 
   def self.make_project_url(*args)
-    url_format = MakeTriage.api_url
+    url_format = MakeTriage.project_url
     url_format % args
   end
 

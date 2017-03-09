@@ -47,9 +47,8 @@ HERE
     end
 
     def perform_action
-      print "PERFORM ACTION"
-      # builder = MakeTriage::ProjectBuilder.new(@owner, @repo, @token)
-      # builder.make
+      builder = MakeTriage::ProjectBuilder.new(@owner, @repo, @token)
+      builder.make
     end
   end
 end
