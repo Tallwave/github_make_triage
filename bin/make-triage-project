@@ -15,11 +15,11 @@ module MakeTriage
 
     def usage
       <<HERE
-Download all open issues from a GitHub repository.
+Create a basic template in a GitHub project for bug triage.
 
 Usage: #{$PROGRAM_NAME} [OPTION]... [OWNER] [REPO] [TOKEN]
 
-Example: #{$PROGRAM_NAME} swilliams issue_exporter abcdef
+Example: #{$PROGRAM_NAME} tallwave my_project abcdef
 
 -h, --help        display this help and exit
     --version     display the version
@@ -43,9 +43,13 @@ HERE
       end
     end
 
+    def define_options(options)
+    end
+
     def perform_action
-      builder = MakeTriage::ProjectBuilder.new(@owner, @repo, @token)
-      builder.make
+      print "PERFORM ACTION"
+      # builder = MakeTriage::ProjectBuilder.new(@owner, @repo, @token)
+      # builder.make
     end
   end
 end

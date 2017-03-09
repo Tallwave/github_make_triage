@@ -20,7 +20,7 @@ module MakeTriage
     end
 
     private
-    def create_project(name, description, next)
+    def create_project(name, description, cb)
       error_handler = ErrorHandler.new
       uri = MakeTriage.make_project_uri @owner, @repo, @token
       payload = {
@@ -29,7 +29,7 @@ module MakeTriage
       }
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true if uri.scheme == "https"
-      req = Net:HTTP::Post.new uri.request_uri
+      req = Net::HTTP::Post.new uri.request_uri
       req.content_type = "application/json"
       req.body = payload.to_json
       handle_response http.request(req)
