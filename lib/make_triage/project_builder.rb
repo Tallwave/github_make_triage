@@ -16,7 +16,6 @@ module MakeTriage
 
     def make
       new_project_id = create_project 'Bug Tracking', 'Issue tracking and triage board'
-      print "new id: #{new_project_id}"
       if new_project_id
         create_columns new_project_id, MakeTriage.default_columns
       end
@@ -68,7 +67,6 @@ module MakeTriage
 
     def retrieve_id(body)
       response_obj = JSON.parse(body)
-      print "obj: #{response_obj["id"]}"
       response_obj["id"]
     end
   end

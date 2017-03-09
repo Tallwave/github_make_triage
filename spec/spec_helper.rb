@@ -1,6 +1,6 @@
 require 'rspec'
 require 'webmock/rspec'
-require_relative '../lib/issue_exporter'
+require_relative '../lib/make_triage'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
