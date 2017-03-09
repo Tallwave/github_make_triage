@@ -1,9 +1,9 @@
-# Copyright (c) 2015 Scott Williams
+# Copyright (c) 2017 Tallwave
 
 require "optparse"
-require "issue_exporter"
+require "make_triage"
 
-module IssueExporting
+module MakeTriage
   module CLI
 
     def run

@@ -1,4 +1,4 @@
-module IssueExporting
+module MakeTriage
   class ErrorHandler
     def response_has_error(response)
       response.code.to_i > 299
